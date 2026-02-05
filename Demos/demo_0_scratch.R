@@ -1,4 +1,4 @@
-#' @title w1_00_scratch_restructured.R
+#' @title demo_0_scratch.R
 #' @description Scratchpad introducing core R concepts (data types, printing, operators, collections, control flow, functions, packages, data frames) and basic plotting for gameplay playtest analysis.
 #' @author NMCG
 #' @bugs None

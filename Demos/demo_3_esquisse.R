@@ -31,6 +31,7 @@ tibble(chickwts)
 # This is useful for beginners who want to explore data without writing code
 
 # Launch the esquisse UI with chickwts
+
 esquisse::esquisser(chickwts)
 
 # Example ggplot2 code for boxplot visualization --------------------------

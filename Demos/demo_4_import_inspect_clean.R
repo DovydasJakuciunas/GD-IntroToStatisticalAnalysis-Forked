@@ -1,4 +1,4 @@
-#' @title demo_1_import_inspect_clean.R
+#' @title demo_4_import_inspect_clean.R
 #' @description Importing user-test survey data, inspecting structure, cleaning column names, validating basic rules, and saving a cleaned dataset.
 #' @author NMCG
 #' @bugs None

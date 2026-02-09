@@ -1,4 +1,4 @@
-# Why the pipe matters
+# The Pipe operator
 
 When you write analysis code for a playtesting report, you often do a **sequence** of steps:
 

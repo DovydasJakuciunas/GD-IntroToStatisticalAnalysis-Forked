@@ -1,5 +1,5 @@
 
-# Why this matters for playtesting reports
+# Understanding the Vector & Dataframe
 
 Most playtesting analysis starts with two building blocks:
 

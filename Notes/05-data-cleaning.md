@@ -45,6 +45,18 @@ data %>%
   filter(!is.na(recommend_0to10))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  select(platform, recommend_0to10) |>
+  filter(!is.na(recommend_0to10))
+```
+
+</details>
+
+
 Read it as:
 
 - Take `data`
@@ -62,6 +74,18 @@ Read it as:
 data_small <- data %>%
   select(platform, experience_band, recommend_0to10)
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+# Keep only these columns
+data_small <- data |>
+  select(platform, experience_band, recommend_0to10)
+```
+
+</details>
+
 
 ### Why you use it in cleaning
 
@@ -85,6 +109,17 @@ data %>%
   select(-free_text)   # Remove the comment column for numeric analysis
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  select(-free_text)   # Remove the comment column for numeric analysis
+```
+
+</details>
+
+
 ### 3) Select by a pattern in the name
 
 This is useful when your survey has many similarly named columns.
@@ -93,6 +128,17 @@ This is useful when your survey has many similarly named columns.
 data %>%
   select(starts_with("task"))        # task1_complete, task2_time_sec, ...
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  select(starts_with("task"))        # task1_complete, task2_time_sec, ...
+```
+
+</details>
+
 
 Other helpers:
 
@@ -110,6 +156,17 @@ data %>%
   select(ends_with("_1to7"))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  select(ends_with("_1to7"))
+```
+
+</details>
+
+
 ### 4) Select using a character vector of column names
 
 This is very common in reusable reports.
@@ -120,6 +177,19 @@ key_numeric <- c("session_minutes", "recommend_0to10", "frustration_1to7")
 data %>%
   select(all_of(key_numeric))
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+key_numeric <- c("session_minutes", "recommend_0to10", "frustration_1to7")
+
+data |>
+  select(all_of(key_numeric))
+```
+
+</details>
+
 
 Why `all_of()`?
 - It tells `select()` that `key_numeric` contains column names (strings).
@@ -143,6 +213,18 @@ data %>%
   filter(!is.na(recommend_0to10))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+# Keep only rows where the recommendation score is present
+data |>
+  filter(!is.na(recommend_0to10))
+```
+
+</details>
+
+
 ### Why you use it in cleaning
 
 - Remove missing values *for a specific analysis*.
@@ -165,6 +247,17 @@ data %>% filter(platform == "PC")
 data %>% filter(platform != "PC")
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |> filter(platform == "PC")
+data |> filter(platform != "PC")
+```
+
+</details>
+
+
 ### 3) Multiple conditions (AND)
 
 Separate conditions with commas. Commas act like AND.
@@ -176,6 +269,20 @@ data %>%
     !is.na(recommend_0to10)
   )
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  filter(
+    platform == "PC",
+    !is.na(recommend_0to10)
+  )
+```
+
+</details>
+
 
 ### 4) Either/or (OR)
 
@@ -195,6 +302,17 @@ data %>%
   filter(platform %in% c("PC", "Console"))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  filter(platform %in% c("PC", "Console"))
+```
+
+</details>
+
+
 ### 6) Numeric ranges
 
 ```r
@@ -209,6 +327,17 @@ data %>%
   filter(between(session_minutes, 10, 120))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  filter(between(session_minutes, 10, 120))
+```
+
+</details>
+
+
 ## A very common playtesting filter pattern: “complete cases for these columns”
 
 If you are going to calculate a correlation or run regression, you need rows with no missing values for the variables involved.
@@ -220,6 +349,20 @@ analysis_df <- data %>%
   select(all_of(vars)) %>%
   drop_na()   # keeps only rows where none of these are NA
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+vars <- c("recommend_0to10", "frustration_1to7", "combat_fun_1to7")
+
+analysis_df <- data |>
+  select(all_of(vars)) |>
+  drop_na()   # keeps only rows where none of these are NA
+```
+
+</details>
+
 
 ## Quick practice
 
@@ -252,6 +395,20 @@ data2 <- data %>%
   )
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data2 <- data |>
+  mutate(
+    platform = as.factor(platform),
+    experience_band = as.factor(experience_band)
+  )
+```
+
+</details>
+
+
 ### 2) Create a new derived column
 
 Example: create a “high frustration” flag from a 1–7 scale.
@@ -271,6 +428,18 @@ data2 %>%
   summarise(mean_recommend = mean(recommend_0to10, na.rm = TRUE))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data2 |>
+  group_by(high_frustration) |>
+  summarise(mean_recommend = mean(recommend_0to10, na.rm = TRUE))
+```
+
+</details>
+
+
 ### 3) Recode values into nicer labels
 
 If your platform values are inconsistent (e.g., "pc", "PC", "Pc"), you can standardise them.
@@ -281,6 +450,19 @@ data2 <- data %>%
     platform = str_to_upper(platform)   # "pc" -> "PC"
   )
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data2 <- data |>
+  mutate(
+    platform = str_to_upper(platform)   # "pc" -> "PC"
+  )
+```
+
+</details>
+
 
 ### 4) Create a grouped/binned version of a numeric column
 
@@ -298,6 +480,24 @@ data2 <- data %>%
   )
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data2 <- data |>
+  mutate(
+    session_band = case_when(
+      session_minutes < 15 ~ "Short (<15m)",
+      session_minutes < 45 ~ "Medium (15–44m)",
+      session_minutes >= 45 ~ "Long (45m+)",
+      TRUE ~ NA_character_
+    )
+  )
+```
+
+</details>
+
+
 Notes:
 - `case_when()` reads like a set of IF rules.
 - The final `TRUE ~ ...` is the “otherwise” case.
@@ -312,6 +512,19 @@ data2 <- data %>%
     ui_clarity_1to7 = factor(ui_clarity_1to7, levels = 1:7, ordered = TRUE)
   )
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data2 <- data |>
+  mutate(
+    ui_clarity_1to7 = factor(ui_clarity_1to7, levels = 1:7, ordered = TRUE)
+  )
+```
+
+</details>
+
 
 ## Quick practice
 
@@ -336,6 +549,21 @@ data %>%
   )
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  summarise(
+    n = n(),
+    mean_recommend = mean(recommend_0to10, na.rm = TRUE),
+    sd_recommend = sd(recommend_0to10, na.rm = TRUE)
+  )
+```
+
+</details>
+
+
 ### Why you use it in cleaning
 
 - Produce counts and means for tables.
@@ -357,6 +585,22 @@ data %>%
   arrange(desc(mean_recommend))
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  group_by(platform) |>
+  summarise(
+    n = n(),
+    mean_recommend = mean(recommend_0to10, na.rm = TRUE)
+  ) |>
+  arrange(desc(mean_recommend))
+```
+
+</details>
+
+
 Key idea:
 - `group_by(platform)` splits the data into “platform groups”.
 - `summarise(...)` runs separately inside each group.
@@ -374,6 +618,23 @@ data %>%
   )
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+data |>
+  group_by(platform) |>
+  summarise(
+    n = n(),
+    mean_recommend = mean(recommend_0to10, na.rm = TRUE),
+    mean_frustration = mean(frustration_1to7, na.rm = TRUE),
+    mean_combat_fun = mean(combat_fun_1to7, na.rm = TRUE)
+  )
+```
+
+</details>
+
+
 ## A classic cleaning summary: missing values by column
 
 You’ve seen this in the report template — it’s a great example of `summarise()` + `across()`.
@@ -386,6 +647,21 @@ missing_summary <- data %>%
 
 missing_summary
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+missing_summary <- data |>
+  summarise(across(everything(), ~ sum(is.na(.)))) |>
+  pivot_longer(everything(), names_to = "column", values_to = "missing") |>
+  arrange(desc(missing))
+
+missing_summary
+```
+
+</details>
+
 
 Read it as:
 - “For every column, count NAs, then reshape into a tidy table.”
@@ -417,6 +693,24 @@ analysis_df <- data %>%
 analysis_df
 ```
 
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+analysis_df <- data |>
+  # 1) Keep only the columns needed for this question
+  select(frustration_1to7, recommend_0to10) |>
+  # 2) Keep only complete rows for these columns
+  drop_na() |>
+  # 3) Create a derived column to define a group
+  mutate(high_frustration = frustration_1to7 >= 6)
+
+analysis_df
+```
+
+</details>
+
+
 ## Pipeline 2: produce a small report table
 
 ```r
@@ -428,6 +722,22 @@ analysis_df %>%
     mean_frustration = mean(frustration_1to7)
   )
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+analysis_df |>
+  group_by(high_frustration) |>
+  summarise(
+    n = n(),
+    mean_recommend = mean(recommend_0to10),
+    mean_frustration = mean(frustration_1to7)
+  )
+```
+
+</details>
+
 
 ## Pipeline 3: “clean then plot”
 
@@ -445,6 +755,27 @@ ggplot(plot_df, aes(x = platform, y = recommend_0to10)) +
     y = "Recommend score"
   )
 ```
+
+<details>
+<summary>Base R pipe (<code>|></code>) version</summary>
+
+```r
+plot_df <- data |>
+  select(platform, recommend_0to10) |>
+  drop_na() |>
+  mutate(platform = as.factor(platform))
+
+ggplot(plot_df, aes(x = platform, y = recommend_0to10)) +
+  geom_boxplot() +
+  labs(
+    title = "Recommendation (0–10) by platform",
+    x = "Platform",
+    y = "Recommend score"
+  )
+```
+
+</details>
+
 
 # Mini-checklist for students
 

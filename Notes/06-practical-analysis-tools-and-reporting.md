@@ -7,12 +7,12 @@ At this stage, your analysis should be:
 - **honest** (state uncertainty),
 - **actionable** (recommend a next design/test step).
 
-You will use R to generate:
+You will use R to generate/perform:
 - descriptive statistics (tables),
-- at least one 95% confidence interval (CI),
-- a small correlation matrix,
-- a simple linear regression (one predictor),
-- a small set of plots that support your story.
+- 95% confidence interval (CI),
+- a correlation matrix,
+- linear regression (one predictor),
+- a set of plots that support your story.
 
 ---
 
@@ -55,8 +55,6 @@ Your Results must include:
 | Build/group comparison paragraph | Results (and Discussion if needed) |
 | Correlation matrix (small) | Results or Appendix |
 | Regression plot + slope sentence | Results (and Discussion if needed) |
-
-
 
 
 ## The dataset you will analyse
@@ -599,13 +597,26 @@ Keep it consistent. Your reader should never have to guess what a plot/table mea
 - Forgetting to state exclusions (e.g., time only includes completed sessions).
 
 
-## Appendix — Full copy‑paste QMD example
+## Minimum Lab Report Requirements 
+
+| Item | What you must include |
+| :- | :- |
+| Hypothesis | H0/H1 in plain English |
+| Summary table | n, mean/median, spread for each group |
+| One comparison | mean/median difference (or rate difference) |
+| One uncertainty statement | a 95% CI for the mean or difference |
+| One plot | group comparison plot (box plot or similar) |
+| Interpretation | 2–4 sentences in gameplay terms |
+| Recommendation | one concrete design/next test action |
+
+
+## Appendix — Example (QMD)
 
 Copy this into a new Quarto file called something like `analysis.qmd`, save it in the same folder as your `data/` directory, and click **Render**.
 
 ```qmd
 ---
-title: "Gameplay Testing — Simple Analysis"
+title: "Generating a Lab Report in QMD format "
 format:
   html:
     toc: true
@@ -717,3 +728,4 @@ In your **Results**, for each table/figure write **2–4 sentences**:
 - What you will test next (one concrete next step)
 
 ```
+

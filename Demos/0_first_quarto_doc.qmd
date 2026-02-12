@@ -9,6 +9,7 @@ toc: true
 # Overview
 
 ```{r}
+library(tibble)
 #| label: plot_completion_times
 #| echo: false
 
@@ -16,7 +17,12 @@ data <- c(12,67,23,56,76,3,32,2,54,56,6,68,34,23,12)
 
 plot(data)
 
-
 ```
 
+A survey of participants (N=`r median(data)`) was conducted.
+
+
+```{r}
+
+```
 

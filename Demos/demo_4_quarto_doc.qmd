@@ -1,0 +1,25 @@
+---
+title: "3DGD - Lab Report"
+subtitle: "Data analysis for the game, XXXX, for group, YYYY"
+author: ["Jane Smith", "B", "C", "D"]
+format: html
+toc: true
+---
+
+# Overview
+
+```{r}
+deaths <- c(5, 3, 7, 4, 2, 6, 8, 3, 4, 5, 6, 2)
+frustration <- c(6, 4, 7, 5, 3, 6, 7, 3, 5, 5, 6, 2)
+ui_clarity <- c(5, 6, 4, 6, 7, 5, 3, 6, 7, 5, 6, 4)
+recommendation <- c(7, 8, 5, 8, 9, 7, 4, 8, 10, 6, 8, 5)
+completed_buildA <- c(0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1)
+completed_buildB <- c(1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1)
+
+survey_data_alpha <- data.frame(deaths, frustration, ui_clarity, recommendation,
+              completed_buildA,completed_buildB)
+
+summary(survey_data_alpha)
+```
+
+A survey of participants (N=`r median(deaths)`) was conducted.
